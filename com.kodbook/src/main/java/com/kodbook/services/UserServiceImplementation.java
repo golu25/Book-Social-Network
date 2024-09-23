@@ -7,10 +7,11 @@ import com.kodbook.entities.User;
 import com.kodbook.repositories.UserRepository;
 
 @Service
-public class UserServiceImplementation implements UserService {
-
-	@Autowired 
+public class UserServiceImplementation
+		implements UserService{
+	@Autowired
 	UserRepository repo;
+
 	public void addUser(User user) {
 		repo.save(user);
 	}
@@ -24,6 +25,7 @@ public class UserServiceImplementation implements UserService {
 		}
 		return false;
 	}
+
 	@Override
 	public boolean validateUser(String username, String password) {
 		String dbPass = repo.findByUsername(username).getPassword();
@@ -32,6 +34,15 @@ public class UserServiceImplementation implements UserService {
 		}
 		return false;
 	}
-	
 
+	@Override
+	public User getUser(String username) {
+		return repo.findByUsername(username);
+	}
+
+	@Override
+	public void updateUser(User user) {
+		repo.save(user);
+	}
+	
 }
